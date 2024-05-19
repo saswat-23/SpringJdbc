@@ -20,6 +20,7 @@ public class StudentService {
 		this.repo = repo;
 	}
 
+	//In the service layer, the student bean is futher passed to the Repo layer to save it in the DB.
 	public void addStudent(Student student) {
 		repo.add(student);
 	}

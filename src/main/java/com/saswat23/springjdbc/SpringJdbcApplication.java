@@ -13,8 +13,10 @@ public class SpringJdbcApplication {
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(SpringJdbcApplication.class, args);
 		
+		// Bean of Student is fetched from the context
 		Student student = context.getBean(Student.class);
 
+		// Student bean is passed to the Service layer to save it in the DB
 		StudentService studentService = context.getBean(StudentService.class);
 		studentService.addStudent(student);
 	}

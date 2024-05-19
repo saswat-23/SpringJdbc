@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import com.saswat23.springjdbc.model.Student;
+import com.saswat23.springjdbc.service.StudentService;
 
 @SpringBootApplication
 public class SpringJdbcApplication {
@@ -13,7 +14,8 @@ public class SpringJdbcApplication {
 		ApplicationContext context = SpringApplication.run(SpringJdbcApplication.class, args);
 		
 		Student student = context.getBean(Student.class);
-		
+
+		StudentService studentService = context.getBean(StudentService.class);
 	}
 
 }

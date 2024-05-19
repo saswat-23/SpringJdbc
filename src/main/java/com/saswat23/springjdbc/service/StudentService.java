@@ -21,7 +21,7 @@ public class StudentService {
 	}
 
 	public void addStudent(Student student) {
-		System.out.println("Added student: "+student);
+		repo.add(student);
 	}
 
 }

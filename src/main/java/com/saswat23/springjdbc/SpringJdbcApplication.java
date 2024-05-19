@@ -1,5 +1,7 @@
 package com.saswat23.springjdbc;
 
+import java.util.List;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -19,6 +21,9 @@ public class SpringJdbcApplication {
 		// Student bean is passed to the Service layer to save it in the DB
 		StudentService studentService = context.getBean(StudentService.class);
 		studentService.addStudent(student);
+		
+		List<Student> students = studentService.showAllStudents();
+		System.out.println("The student list is: "+students);
 	}
 
 }

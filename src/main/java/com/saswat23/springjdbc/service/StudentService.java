@@ -1,5 +1,7 @@
 package com.saswat23.springjdbc.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +22,14 @@ public class StudentService {
 		this.repo = repo;
 	}
 
-	//In the service layer, the student bean is futher passed to the Repo layer to save it in the DB.
+	//In the service layer, the student bean is further passed to the Repo layer to save it in the DB.
 	public void addStudent(Student student) {
 		repo.add(student);
+	}
+
+	//This method is used to fetch all the Student records through the Repo Layer.
+	public List<Student> showAllStudents() {
+		return repo.findAll();
 	}
 
 }

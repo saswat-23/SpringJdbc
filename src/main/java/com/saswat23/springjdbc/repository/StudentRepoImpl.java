@@ -1,8 +1,11 @@
 package com.saswat23.springjdbc.repository;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -10,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.saswat23.springjdbc.model.Student;
+import com.saswat23.springjdbc.repository.helper.StudentResultSetExtractor;
 
 @Repository
 public class StudentRepoImpl implements StudentRepo {
@@ -44,8 +48,9 @@ public class StudentRepoImpl implements StudentRepo {
 
 	@Override
 	public int saveStudent(Student student) {
-		sql = "insert into student (rollno, name, marks, user_id) values (?,?,?,?)";
-		Object[] sqlParams = {student.getRollNo(), student.getName(), student.getMarks(), student.getUserId()};
+		sql = "insert into student (rollno, name, marks, user_id, address) values (?,?,?,?,?)";
+		Object[] sqlParams = {student.getRollNo(), student.getName(), student.getMarks(), 
+								student.getUserId(), student.getAddress()};
 		System.out.println("SqlParams: "+sqlParams);
 		int rowsInserted = jdbc.update(sql, sqlParams);
 		
@@ -54,14 +59,15 @@ public class StudentRepoImpl implements StudentRepo {
 
 	@Override
 	public Student findStudentById(String studentId) {
-		sql = "select rollno, name, marks, user_id as userId from student where user_id = ?";
-		Student student = jdbc.queryForObject(sql, new Object[]{studentId}, new int[] {1}, new BeanPropertyRowMapper<>(Student.class));
+		sql = "select rollno, name, marks, user_id as userId, address from student where user_id = ?";
+		Student student = jdbc.queryForObject(sql, new Object[]{studentId}, new int[] {1}, 
+				new BeanPropertyRowMapper<>(Student.class));
 		return student;
 	}
 
 	@Override
 	public List<Student> findAllStudents() {
-		sql = "select rollno, name, marks, user_id as userId from student";
+		sql = "select rollno, name, marks, user_id as userId, address from student";
 		List<Student> students = jdbc.query(sql, new BeanPropertyRowMapper<Student>(Student.class));
 		return students;
 	}
@@ -75,8 +81,9 @@ public class StudentRepoImpl implements StudentRepo {
 
 	@Override
 	public Student updateStudentData(Student student) {
-		sql = "update student set rollno = ?, name=?, marks=? where user_id = ?";
-		Object[] sqlParams = {student.getRollNo(), student.getName(), student.getMarks(), "stud001"};
+		sql = "update student set rollno = ?, name=?, marks=?, address=? where user_id = ?";
+		Object[] sqlParams = {student.getRollNo(), student.getName(), student.getMarks(), 
+								"stud001", student.getAddress()};
 		int rowsUpdated = jdbc.update(sql, sqlParams);
 		System.out.println(rowsUpdated+" records updated.");
 		return findStudentById(student.getUserId());
@@ -93,12 +100,13 @@ public class StudentRepoImpl implements StudentRepo {
 					student.getRollNo(),
 					student.getName(),
 					student.getMarks(),
-					student.getUserId()
+					student.getUserId(),
+					student.getAddress()
 			};
 			sqlParamsList.add(sqlParams);
 		});
 		
-		sql = "insert into student (rollno, name, marks, user_id) values (?,?,?,?)";
+		sql = "insert into student (rollno, name, marks, user_id, address) values (?,?,?,?,?)";
 		int rowsInserted = Arrays.stream(jdbc.batchUpdate(sql, sqlParamsList))
 				.sum();
 		
@@ -110,6 +118,12 @@ public class StudentRepoImpl implements StudentRepo {
 		sql = "truncate table student";
 		jdbc.execute(sql);
 		System.out.println("Student table truncated..");
+	}
+
+	@Override
+	public Map<String, List<Student>> getStudentsGroupedByAddress() {
+		sql = "select * from student";
+		return jdbc.query(sql, new StudentResultSetExtractor());
 	}
 
 }

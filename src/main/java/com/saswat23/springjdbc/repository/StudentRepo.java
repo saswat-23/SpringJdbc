@@ -1,6 +1,7 @@
 package com.saswat23.springjdbc.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +17,5 @@ public interface StudentRepo {
 	Student updateStudentData(Student student);
 	int batchInsertStudents(List<Student> students);
 	void truncateStudentData();
-	
+	Map<String,List<Student>> getStudentsGroupedByAddress();
 }

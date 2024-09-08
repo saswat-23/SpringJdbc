@@ -2,6 +2,7 @@ package com.saswat23.springjdbc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,6 +28,7 @@ public class SpringJdbcApplication {
 		student.setName("SaswatMonty");
 		student.setMarks(84.23f);
 		student.setUserId("stud202400x");
+		student.setAddress("Newtown");
 
 		
 		// Clear existing ercords from the database
@@ -63,6 +65,13 @@ public class SpringJdbcApplication {
 		System.out.println(deleteCount+" student(s) deleted successfully!");
 		System.out.println("Deleted student info: "+stud2024_xxx);
 		
+		// Show the list of Students grouped by their address location
+		Map<String,List<Student>> studentMap = studentService.getStudentInfoGroupedByAddress();
+		System.out.println("Students List Grouped By address: \n");
+		studentMap.forEach((t, u) -> {
+			System.out.println(t+"\t->\t"+u);
+		});
+		
 		System.out.println("\n\nThanks for using Student Services...");
 		
 	}
@@ -70,11 +79,12 @@ public class SpringJdbcApplication {
 	
 	public static List<Student> getTempStudentList() {
 		
-		Student student1 = new Student(001, "Sanu", (float) (100*Math.random()), "stud2024_001");
-		Student student2 = new Student(012, "Lovely", (float) (100*Math.random()), "stud2024_002");
-		Student student3 = new Student(023, "Sari", (float) (100*Math.random()), "stud2024_003");
-		Student student4 = new Student(104, "Dadu", (float) (100*Math.random()), "stud2024_004");
-		Student student5 = new Student(205, "Gudu", (float) (100*Math.random()), "stud2024_005");
+		Student student1 = new Student(001, "Sanu", (float) (100*Math.random()), "stud2024_001", "Kolkata");
+		Student student2 = new Student(012, "Lovely", (float) (100*Math.random()), "stud2024_002", "BBSR");
+		Student student3 = new Student(023, "Sari", (float) (100*Math.random()), "stud2024_003", "Ctk");
+		Student student4 = new Student(104, "Dadu", (float) (100*Math.random()), "stud2024_004", "Ahmedabad");
+		Student student5 = new Student(205, "Gudu", (float) (100*Math.random()), "stud2024_005", "BBSR");
+		Student student6 = new Student(305, "Niranjan", (float) (100*Math.random()), "stud2024_006", "Newtown");
 		
 		List<Student> studentList = new ArrayList<>();
 		studentList.add(student1);
@@ -82,6 +92,7 @@ public class SpringJdbcApplication {
 		studentList.add(student3);
 		studentList.add(student4);
 		studentList.add(student5);
+		studentList.add(student6);
 		
 		System.out.println("Temp student list is: ");
 		studentList.forEach(System.out::println);

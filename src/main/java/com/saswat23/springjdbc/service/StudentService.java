@@ -1,6 +1,7 @@
 package com.saswat23.springjdbc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,11 @@ public class StudentService {
 	//Deletes all the student data from the DB
 	public void clearStudentData() {
 		repo.truncateStudentData();
+	}
+	
+	//Get the list of Student objects grouped by address
+	public Map<String, List<Student>> getStudentInfoGroupedByAddress() {
+		return repo.getStudentsGroupedByAddress();
 	}
 
 }

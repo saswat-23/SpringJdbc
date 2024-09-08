@@ -11,14 +11,16 @@ public class Student {
 	private String name;
 	private float marks;
 	private String userId;
+	private String address;
 	
 	public Student() {};
 	
-	public Student(int rollNo, String name, float marks, String userId) {
+	public Student(int rollNo, String name, float marks, String userId, String address) {
 		this.rollNo = rollNo;
 		this.name = name;
 		this.marks = marks;
 		this.userId = userId;
+		this.address = address;
 	}
 	
 	public int getRollNo() {
@@ -47,9 +49,18 @@ public class Student {
 		this.userId = userId;
 	}
 	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	@Override
 	public String toString() {
-		return "Student [rollNo=" + rollNo + ", name=" + name + ", marks=" + marks + ", userId=" + userId + "]";
+		return "Student [rollNo=" + rollNo + ", name=" + name + ", marks=" + marks + ", userId=" + userId + ", address="
+				+ address + "]";
 	}
 	
 

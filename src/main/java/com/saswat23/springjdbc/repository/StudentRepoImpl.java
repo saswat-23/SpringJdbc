@@ -54,8 +54,8 @@ public class StudentRepoImpl implements StudentRepo {
 
 	@Override
 	public Student findStudentById(String studentId) {
-		sql = "select rollno, name, marks from student where user_id = ?";
-		Student student = jdbc.queryForObject(studentId, new BeanPropertyRowMapper<>());
+		sql = "select rollno, name, marks, user_id as userId from student where user_id = ?";
+		Student student = jdbc.queryForObject(sql, new Object[]{studentId}, new int[] {1}, new BeanPropertyRowMapper<>(Student.class));
 		return student;
 	}
 
@@ -75,7 +75,7 @@ public class StudentRepoImpl implements StudentRepo {
 
 	@Override
 	public Student updateStudentData(Student student) {
-		sql = "update student set roll_no = ?, username=?, marks=? where student_id = ?";
+		sql = "update student set rollno = ?, name=?, marks=? where user_id = ?";
 		Object[] sqlParams = {student.getRollNo(), student.getName(), student.getMarks(), "stud001"};
 		int rowsUpdated = jdbc.update(sql, sqlParams);
 		System.out.println(rowsUpdated+" records updated.");
@@ -90,7 +90,7 @@ public class StudentRepoImpl implements StudentRepo {
 		
 		students.forEach(student -> {
 			Object[] sqlParams = {
-					student.getMarks(),
+					student.getRollNo(),
 					student.getName(),
 					student.getMarks(),
 					student.getUserId()

@@ -1,14 +1,25 @@
 package com.saswat23.springjdbc.model;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
+@Scope("prototype")
 public class Student {
 	
 	private int rollNo;
 	private String name;
 	private float marks;
 	private String userId;
+	
+	public Student() {};
+	
+	public Student(int rollNo, String name, float marks, String userId) {
+		this.rollNo = rollNo;
+		this.name = name;
+		this.marks = marks;
+		this.userId = userId;
+	}
 	
 	public int getRollNo() {
 		return rollNo;

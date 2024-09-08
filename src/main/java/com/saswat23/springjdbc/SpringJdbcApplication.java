@@ -18,8 +18,9 @@ public class SpringJdbcApplication {
 		// Bean of Student is fetched from the context
 		Student student = context.getBean(Student.class);
 		student.setRollNo(21);
-		student.setName("SaswatM");
-		student.setMarks(84);
+		student.setName("SaswatMonty");
+		student.setMarks(84.23f);
+		student.setUserId("stud2024001");
 
 		// Student bean is passed to the Service layer to save it in the DB
 		StudentService studentService = context.getBean(StudentService.class);

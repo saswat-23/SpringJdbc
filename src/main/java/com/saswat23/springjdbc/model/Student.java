@@ -7,7 +7,8 @@ public class Student {
 	
 	private int rollNo;
 	private String name;
-	private int marks;
+	private float marks;
+	private String userId;
 	
 	public int getRollNo() {
 		return rollNo;
@@ -21,16 +22,23 @@ public class Student {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getMarks() {
+	public float getMarks() {
 		return marks;
 	}
-	public void setMarks(int marks) {
+	public void setMarks(float marks) {
 		this.marks = marks;
+	}
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	@Override
 	public String toString() {
-		return "Student [rollNo=" + rollNo + ", name=" + name + ", marks=" + marks + "]";
+		return "Student [rollNo=" + rollNo + ", name=" + name + ", marks=" + marks + ", userId=" + userId + "]";
 	}
 	
 
